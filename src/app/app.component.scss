@@ -1,0 +1,8 @@
+@use 'src/styles/variables';
+@use 'src/styles/mixins';
+
+.container {
+    background-color: variables.$dark;
+
+    height: 100vh;
+}

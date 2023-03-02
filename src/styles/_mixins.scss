@@ -1,0 +1,16 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-custom($direction, $ali, $jc) {
+    display: flex;
+    align-items: $ali;
+    justify-content: $jc;
+}
+
+@mixin size($w, $h) {
+    width: $w;
+    height: $h;
+}

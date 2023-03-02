@@ -1,0 +1,35 @@
+<div class="converter">
+    
+    <div class="converter__inner">
+        <div class="currency">
+            <h4 class="currency__title">You have</h4>
+            <div class="currency__inputs">
+                <input type="number" class="currency__input" placeholder="0,0" step="0.01" min="0">
+                <app-select 
+                    [item]="baseCurrency"
+                    [items]="currencyOptions" 
+                    (itemSelected)="onBaseCurrencySelected($event)"
+                ></app-select>
+            </div>
+        </div>
+
+        <app-icon-button 
+            className="exchange-btn" 
+            iconSrc="assets/images/exchange.svg" 
+            (buttonClicked)="onExchangeToggle($event)"
+        ></app-icon-button>
+
+        <div class="currency">
+            <h4 class="currency__title">You get</h4>
+            <div class="currency__inputs">
+                <input type="number" class="currency__input" placeholder="0,0" step="0.01" min="0">
+                <app-select 
+                    [item]="targetCurrency"
+                    [items]="currencyOptions" 
+                    (itemSelected)="onTargetCurrencySelected($event)"
+                ></app-select>
+            </div>
+        </div>
+
+    </div>
+</div>

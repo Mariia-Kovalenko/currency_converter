@@ -1,0 +1,6 @@
+@use 'src/styles/variables';
+@use 'src/styles/mixins';
+
+.header {
+    height: variables.$header-height;
+}

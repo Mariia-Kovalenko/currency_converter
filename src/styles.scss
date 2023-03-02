@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+*,:before,:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1d1d1d;
+}
+
+
+input {
+    border: none;
+    background-color: transparent;
+    font: inherit;
+    outline: none;
+}
+
+select {
+    background-color: transparent;
+    border: none;
+    font: inherit;
+}
+
+option {
+    outline: none;
+}
+
+select:focus {
+    outline: none;
+}
+
+button {
+    display: block;
+    background-color: transparent;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.exchange-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px) {
+    .exchange-btn {
+        transform: rotate(90deg) translate(-50%, 50%);
+    }
+}

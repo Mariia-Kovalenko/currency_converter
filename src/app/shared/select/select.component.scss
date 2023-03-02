@@ -1,0 +1,26 @@
+@use 'src/styles/variables';
+@use 'src/styles/mixins';
+
+
+.custom-select {
+    @include mixins.size(80px, 40px);
+    border-bottom: 1px solid variables.$input-border;
+    position: relative;
+}
+
+.dropdown-options {
+    background-color: whitesmoke;
+    width: 80px;
+    position: absolute;
+    z-index: 100;
+}
+
+.option {
+    height: 30px;
+    text-align: center;
+    width: 100%;
+
+    &:hover {
+        background-color: #9b9a9a;
+    }
+}

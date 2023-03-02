@@ -1,0 +1,16 @@
+<!-- <select class="select" name="select" [value]="selectedItemIndex" (change)="onChange($event)">
+    <option *ngFor="let option of items" [value]="option.id">{{ option.value }}</option>
+</select> -->
+
+
+<button class="custom-select" (click)="onClick()">{{ items[selectedItemIndex].value }}</button>
+<div *ngIf="showDropdown" class="dropdown-options">
+    <button 
+        class="option"
+        *ngFor="let option of items" 
+        class="option" 
+        (click)="onChangeSelectedValue(option.id)"
+        >
+            {{ option.value }}
+    </button>
+</div>

@@ -1,0 +1,68 @@
+@use 'src/styles/variables';
+@use 'src/styles/mixins';
+
+.converter {
+    @include mixins.flex-center;
+    height: calc(100vh - variables.$header-height);
+    margin: 0 auto;
+
+    &__inner {
+        display: flex;
+        border-radius: 10px;
+        background-color: variables.$lightgrey;
+        @include mixins.size(80%, 200px);
+        position: relative;
+    }
+}
+
+.currency {
+    width: 50%;
+    height: 100%;
+    padding: 30px 50px 20px;
+
+    &:last-child {
+        background-color: #efefef;
+        border-radius: 0 10px 10px 0;
+    }
+
+    &__title {
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    &__inputs {
+        display: flex;
+        gap: 20px;
+    }
+
+    &__input {
+        display: block;
+        height: 40px;
+        width: 70%;
+        padding-bottom: 5px;
+        border-bottom: 1px solid variables.$input-border;
+        font-size: 24px;
+
+        &::placeholder {
+            color: variables.$placeholder-text;
+            font-weight: 400;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .converter__inner {
+        flex-direction: column;
+        height: 300px;
+    }
+
+    .currency {
+        padding: 20px;
+        @include mixins.size(100%, 50%);
+
+        &:last-child {
+            border-radius: 0 0px 10px 10px;
+        }
+    }
+}

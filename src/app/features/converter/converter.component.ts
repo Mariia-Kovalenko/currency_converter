@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-converter',
@@ -15,10 +17,54 @@ export class ConverterComponent implements OnInit {
   baseCurrency: number | undefined = this.currencyOptions[0].id;
   targetCurrency: number | undefined = this.currencyOptions[1].id;
 
+  baseValue!: number;
+  targetValue!: number;
+
+  baseCurrencyInput!: FormGroup;
+  targetCurrencyInput!: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.baseCurrency, this.targetCurrency);
+    this.baseCurrencyInput = new FormGroup({
+      'baseCurrencyValue': new FormControl(''),
+    });
+
+    this.targetCurrencyInput = new FormGroup({
+      'targetCurrencyValue': new FormControl(''),
+    });
+
+    this.baseCurrencyInput.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+      )
+      .subscribe({
+        next: val => {
+          console.log(val.baseCurrencyValue);
+          this.baseValue = val.baseCurrencyValue;
+          this.targetValue = val.baseCurrencyValue * 0.025;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+
+    this.targetCurrencyInput.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+      )
+      .subscribe({
+        next: val => {
+          console.log(val);
+          this.targetValue = val.targetCurrencyValue;
+          this.baseValue = val.targetCurrencyValue * 39;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 
   onBaseCurrencySelected(event: number) {
@@ -34,11 +80,16 @@ export class ConverterComponent implements OnInit {
   }
 
   onExchangeToggle(event: string) {
-    console.log(event);
     [this.baseCurrency, this.targetCurrency] = [this.targetCurrency, this.baseCurrency];
+    console.log(`convert ${this.baseValue} ${this.baseCurrency} to ${this.targetValue} ${this.targetCurrency}`);
 
-    console.log(this.baseCurrency, this.targetCurrency);
+    // recalculate target currency amount
     
+  }
+
+  onBaseCurrencyChange(event: any) {
+    console.log(event.target.value);
+    this.targetCurrency = event.target.value *= 39;
   }
 
 }

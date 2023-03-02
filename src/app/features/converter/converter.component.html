@@ -3,14 +3,22 @@
     <div class="converter__inner">
         <div class="currency">
             <h4 class="currency__title">You have</h4>
-            <div class="currency__inputs">
-                <input type="number" class="currency__input" placeholder="0,0" step="0.01" min="0">
+            <form [formGroup]="baseCurrencyInput" class="currency__inputs">
+                <input 
+                    type="number" 
+                    class="currency__input" 
+                    placeholder="0,00" 
+                    step="0.01" 
+                    min="0"
+                    value="{{baseValue}}"
+                    formControlName="baseCurrencyValue"
+                >
                 <app-select 
                     [item]="baseCurrency"
                     [items]="currencyOptions" 
                     (itemSelected)="onBaseCurrencySelected($event)"
                 ></app-select>
-            </div>
+            </form>
         </div>
 
         <app-icon-button 
@@ -21,14 +29,22 @@
 
         <div class="currency">
             <h4 class="currency__title">You get</h4>
-            <div class="currency__inputs">
-                <input type="number" class="currency__input" placeholder="0,0" step="0.01" min="0">
+            <form [formGroup]="targetCurrencyInput" class="currency__inputs">
+                <input 
+                    type="number" 
+                    class="currency__input" 
+                    placeholder="0,00" 
+                    step="0.01" 
+                    min="0"
+                    value="{{targetValue}}"
+                    formControlName="targetCurrencyValue"
+                >
                 <app-select 
                     [item]="targetCurrency"
                     [items]="currencyOptions" 
                     (itemSelected)="onTargetCurrencySelected($event)"
                 ></app-select>
-            </div>
+            </form>
         </div>
 
     </div>

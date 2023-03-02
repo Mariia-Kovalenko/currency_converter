@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ConverterComponent } from './converter/converter.component';
 import { SelectComponent } from '../shared/select/select.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   exports: [
     ConverterComponent

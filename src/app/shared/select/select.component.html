@@ -3,7 +3,12 @@
 </select> -->
 
 
-<button class="custom-select" (click)="onClick()">{{ items[selectedItemIndex].value }}</button>
+<button class="custom-select {{showDropdown && 'opened'}}" (click)="onClick()">
+    <div class="custom-select__text">
+        {{ items[selectedItemIndex].value }}
+    </div>
+    <img src="assets/images/arrow-down.svg" alt="arrow" class="custom-select__arrow">
+</button>
 <div *ngIf="showDropdown" class="dropdown-options">
     <button 
         class="option"

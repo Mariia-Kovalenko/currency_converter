@@ -14,7 +14,7 @@
                     formControlName="baseCurrencyValue"
                 >
                 <app-select 
-                    [item]="baseCurrency"
+                    [item]="baseCurrencyId"
                     [items]="currencyOptions" 
                     (itemSelected)="onBaseCurrencySelected($event)"
                 ></app-select>
@@ -40,7 +40,7 @@
                     formControlName="targetCurrencyValue"
                 >
                 <app-select 
-                    [item]="targetCurrency"
+                    [item]="targetCurrencyId"
                     [items]="currencyOptions" 
                     (itemSelected)="onTargetCurrencySelected($event)"
                 ></app-select>

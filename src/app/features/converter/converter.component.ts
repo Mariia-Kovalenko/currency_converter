@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ConvertionService } from 'src/app/core/services/convertion.service';
+import { Currency } from 'src/app/shared/models/currency.model';
 import { indexes } from 'src/app/utils/constants';
 
 @Component({
@@ -10,13 +13,14 @@ import { indexes } from 'src/app/utils/constants';
   styleUrls: ['./converter.component.scss']
 })
 export class ConverterComponent implements OnInit {
-  currencyOptions = indexes.map((index) => { return { id: index.id, value: index.curr }})
+  // currencyOptions = indexes.map((index) => { return { id: index.id, value: index.curr }})
+  currencyOptions = [];
 
-  baseCurrency: number | undefined = this.currencyOptions[0].id;
-  targetCurrency: number | undefined = this.currencyOptions[1].id;
+  baseCurrencyId: number | undefined = 1;
+  targetCurrencyId: number | undefined = 1;
 
-  baseCurrencyCode: string | undefined = this.currencyOptions[0].value;
-  targetCurrencyCode: string | undefined = this.currencyOptions[1].value;
+  baseCurrencyCode: string | undefined = '';
+  targetCurrencyCode: string | undefined = '';
 
   targetCurrencyCoef: number = 0.02;
 
@@ -26,9 +30,30 @@ export class ConverterComponent implements OnInit {
   baseCurrencyInput!: FormGroup;
   targetCurrencyInput!: FormGroup;
 
-  constructor(private convertionService: ConvertionService) { }
+  constructor(
+    private convertionService: ConvertionService,
+    private store: Store<{ currencies: { currencies: Currency[] } }>
+  ) { }
 
   ngOnInit(): void {
+    this.store.select('currencies').subscribe({
+      next: data => {
+        this.currencyOptions = data.currencies
+          .map((curr) => { 
+            return { id: curr.id, value: curr.code }
+          })
+
+        this.baseCurrencyId = data.currencies[0].id;
+        this.targetCurrencyId = data.currencies[1].id;
+
+        this.baseCurrencyCode = data.currencies[0].code;
+        this.targetCurrencyCode = data.currencies[1].code;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+    
     this.baseCurrencyInput = new FormGroup({
       'baseCurrencyValue': new FormControl(''),
     });
@@ -45,7 +70,12 @@ export class ConverterComponent implements OnInit {
       .subscribe({
         next: (val) => {
           this.baseValue = val.baseCurrencyValue;
-          const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+          const { amount, coef } = this.convertionService
+            .convert(
+              this.baseCurrencyId, 
+              this.targetCurrencyId, 
+              this.baseValue
+            );
           
           this.targetValue = amount;
           this.targetCurrencyCoef = coef;
@@ -64,7 +94,11 @@ export class ConverterComponent implements OnInit {
         next: (val) => {
           this.targetValue = val.targetCurrencyValue;
           
-          const { amount, coef } = this.convertionService.convert(this.targetCurrency, this.baseCurrency, this.targetValue);
+          const { amount, coef } = this.convertionService.convert(
+            this.targetCurrencyId, 
+            this.baseCurrencyId, 
+            this.targetValue
+          );
 
           this.baseValue = amount;
           this.targetCurrencyCoef = coef;
@@ -77,31 +111,39 @@ export class ConverterComponent implements OnInit {
 
   onBaseCurrencySelected(event: number) {
     const currencySelected = this.currencyOptions.find((currency) => currency.id === event);
-    this.baseCurrency = currencySelected?.id;
+    this.baseCurrencyId = currencySelected?.id;
     this.baseCurrencyCode = currencySelected?.value;
 
     // recalculate
-    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue)
+    const { amount, coef } = this.convertionService.convert(
+      this.baseCurrencyId, 
+      this.targetCurrencyId, 
+      this.baseValue
+    );
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
   }
 
   onTargetCurrencySelected(event: number) {
     const currencySelected = this.currencyOptions.find((currency) => currency.id === event);
-    this.targetCurrency = currencySelected?.id;
+    this.targetCurrencyId = currencySelected?.id;
     this.targetCurrencyCode = currencySelected?.value;
 
     // recalculate
-    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+    const { amount, coef } = this.convertionService.convert(
+      this.baseCurrencyId, 
+      this.targetCurrencyId, 
+      this.baseValue
+    );
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
   }
 
   onExchangeToggle() {
-    [this.baseCurrency, this.targetCurrency] = [this.targetCurrency, this.baseCurrency];
+    [this.baseCurrencyId, this.targetCurrencyId] = [this.targetCurrencyId, this.baseCurrencyId];
     [this.baseCurrencyCode, this.targetCurrencyCode] = [this.targetCurrencyCode, this.baseCurrencyCode];
     // recalculate target currency amount
-    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+    const { amount, coef } = this.convertionService.convert(this.baseCurrencyId, this.targetCurrencyId, this.baseValue);
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
   }

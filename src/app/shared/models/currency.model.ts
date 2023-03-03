@@ -5,5 +5,7 @@ export enum CurrencyCodes {
 }
 
 export interface Currency {
-    
+    id: number,
+    code: CurrencyCodes,
+    coef: number
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ConvertionService } from 'src/app/core/services/convertion.service';
 
 @Component({
   selector: 'app-converter',
@@ -23,7 +24,7 @@ export class ConverterComponent implements OnInit {
   baseCurrencyInput!: FormGroup;
   targetCurrencyInput!: FormGroup;
 
-  constructor() { }
+  constructor(private convertionService: ConvertionService) { }
 
   ngOnInit(): void {
     this.baseCurrencyInput = new FormGroup({
@@ -43,7 +44,9 @@ export class ConverterComponent implements OnInit {
         next: val => {
           console.log(val.baseCurrencyValue);
           this.baseValue = val.baseCurrencyValue;
-          this.targetValue = val.baseCurrencyValue * 0.025;
+          // this.targetValue = val.baseCurrencyValue * 0.025;
+
+          this.targetValue = +this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
         },
         error: err => {
           console.log(err);
@@ -59,7 +62,9 @@ export class ConverterComponent implements OnInit {
         next: val => {
           console.log(val);
           this.targetValue = val.targetCurrencyValue;
-          this.baseValue = val.targetCurrencyValue * 39;
+          // this.baseValue = val.targetCurrencyValue * 39;
+
+          this.baseValue = +this.convertionService.convert(this.targetCurrency, this.baseCurrency, this.targetValue);
         },
         error: err => {
           console.log(err);
@@ -84,7 +89,7 @@ export class ConverterComponent implements OnInit {
     console.log(`convert ${this.baseValue} ${this.baseCurrency} to ${this.targetValue} ${this.targetCurrency}`);
 
     // recalculate target currency amount
-    
+    this.targetValue = +this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
   }
 
   onBaseCurrencyChange(event: any) {

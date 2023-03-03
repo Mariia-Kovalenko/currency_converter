@@ -28,9 +28,10 @@ export class ConvertionService {
 
   constructor() { }
 
-  convert(baseCurrencyId: number | undefined, targetCurrencyId: number | undefined, amount: number) {
+  convert(baseCurrencyId: number | undefined, targetCurrencyId: number | undefined, amount: number): {amount: number, coef: number} {
     // if currencies are the same
-    if (baseCurrencyId === targetCurrencyId) return amount;
+    if (baseCurrencyId === targetCurrencyId) return { amount, coef: 1 };
+    let coef = 0;
 
     const targetCurrencyCoef = indexes.find((index) => index.id === targetCurrencyId);
     const baseCurrencyCoef = indexes.find((index) => index.id === baseCurrencyId);
@@ -38,19 +39,20 @@ export class ConvertionService {
     if (targetCurrencyCoef && baseCurrencyCoef) {
       // if we are not converting from or into UAH
       if (baseCurrencyId !== UAH_ID && targetCurrencyId !== UAH_ID) {
-        const coef = targetCurrencyCoef.coef / baseCurrencyCoef.coef;
-        return (amount * coef).toFixed(2);
+        coef = targetCurrencyCoef.coef / baseCurrencyCoef.coef;
+        return { amount: +(amount * coef).toFixed(2), coef: +coef.toFixed(2) };
       }
 
       // if we are converting into UAH
       if (targetCurrencyId === UAH_ID) {
-        return (amount * (1 / baseCurrencyCoef.coef)).toFixed(2);
+        coef = 1 / baseCurrencyCoef.coef;
+        return { amount: +(amount * coef).toFixed(2), coef: +coef.toFixed(2) };
       } 
 
       // if we are converting from UAH
-      return (amount * targetCurrencyCoef.coef).toFixed(2);
+      return { amount: +(amount * targetCurrencyCoef.coef).toFixed(2), coef: +targetCurrencyCoef.coef.toFixed(2) };
     }
     
-    return 0;
+    return { amount: 0, coef: 0 };
   }
 }

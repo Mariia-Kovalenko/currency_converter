@@ -24,7 +24,7 @@
         <app-icon-button 
             className="exchange-btn" 
             iconSrc="assets/images/exchange.svg" 
-            (buttonClicked)="onExchangeToggle($event)"
+            (buttonClicked)="onExchangeToggle()"
         ></app-icon-button>
 
         <div class="currency">
@@ -45,6 +45,7 @@
                     (itemSelected)="onTargetCurrencySelected($event)"
                 ></app-select>
             </form>
+            <div class="rate">1 {{ baseCurrencyCode }} = <span>{{ targetCurrencyCoef }} {{ targetCurrencyCode }}</span></div>
         </div>
 
     </div>

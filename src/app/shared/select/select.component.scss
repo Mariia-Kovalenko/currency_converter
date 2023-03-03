@@ -2,7 +2,7 @@
 @use 'src/styles/mixins';
 
 
-.custom-select {
+.customSelect {
     @include mixins.size(80px, 40px);
     border-bottom: 1px solid variables.$input-border;
     position: relative;
@@ -28,7 +28,7 @@
 }
 
 .dropdown-options {
-    // background-color: whitesmoke;
+    background-color: white;
     width: 80px;
     max-height: 120px;
     overflow-y: auto;
@@ -45,6 +45,7 @@
     height: 30px;
     text-align: center;
     width: 100%;
+    transition: .3s;
 
     &:hover {
         background-color: variables.$light;

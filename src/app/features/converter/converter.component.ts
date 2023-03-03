@@ -18,6 +18,11 @@ export class ConverterComponent implements OnInit {
   baseCurrency: number | undefined = this.currencyOptions[0].id;
   targetCurrency: number | undefined = this.currencyOptions[1].id;
 
+  baseCurrencyCode: string | undefined = this.currencyOptions[0].value;
+  targetCurrencyCode: string | undefined = this.currencyOptions[1].value;
+
+  targetCurrencyCoef: number = 0.02;
+
   baseValue!: number;
   targetValue!: number;
 
@@ -41,14 +46,14 @@ export class ConverterComponent implements OnInit {
         distinctUntilChanged(),
       )
       .subscribe({
-        next: val => {
-          console.log(val.baseCurrencyValue);
+        next: (val) => {
           this.baseValue = val.baseCurrencyValue;
-          // this.targetValue = val.baseCurrencyValue * 0.025;
-
-          this.targetValue = +this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+          const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+          
+          this.targetValue = amount;
+          this.targetCurrencyCoef = coef;
         },
-        error: err => {
+        error: (err) => {
           console.log(err);
         }
       })
@@ -59,14 +64,15 @@ export class ConverterComponent implements OnInit {
         distinctUntilChanged(),
       )
       .subscribe({
-        next: val => {
-          console.log(val);
+        next: (val) => {
           this.targetValue = val.targetCurrencyValue;
-          // this.baseValue = val.targetCurrencyValue * 39;
+          
+          const { amount, coef } = this.convertionService.convert(this.targetCurrency, this.baseCurrency, this.targetValue);
 
-          this.baseValue = +this.convertionService.convert(this.targetCurrency, this.baseCurrency, this.targetValue);
+          this.baseValue = amount;
+          this.targetCurrencyCoef = coef;
         },
-        error: err => {
+        error: (err) => {
           console.log(err);
         }
       })
@@ -75,26 +81,31 @@ export class ConverterComponent implements OnInit {
   onBaseCurrencySelected(event: number) {
     const currencySelected = this.currencyOptions.find((currency) => currency.id === event);
     this.baseCurrency = currencySelected?.id;
-    console.log('base currency selected', currencySelected);
+    this.baseCurrencyCode = currencySelected?.value;
+
+    // recalculate
+    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue)
+    this.targetValue = amount;
+    this.targetCurrencyCoef = coef;
   }
 
   onTargetCurrencySelected(event: number) {
     const currencySelected = this.currencyOptions.find((currency) => currency.id === event);
     this.targetCurrency = currencySelected?.id;
-    console.log('target currency selected', currencySelected);
+    this.targetCurrencyCode = currencySelected?.value;
+
+    // recalculate
+    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+    this.targetValue = amount;
+    this.targetCurrencyCoef = coef;
   }
 
-  onExchangeToggle(event: string) {
+  onExchangeToggle() {
     [this.baseCurrency, this.targetCurrency] = [this.targetCurrency, this.baseCurrency];
-    console.log(`convert ${this.baseValue} ${this.baseCurrency} to ${this.targetValue} ${this.targetCurrency}`);
-
+    [this.baseCurrencyCode, this.targetCurrencyCode] = [this.targetCurrencyCode, this.baseCurrencyCode];
     // recalculate target currency amount
-    this.targetValue = +this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+    const { amount, coef } = this.convertionService.convert(this.baseCurrency, this.targetCurrency, this.baseValue);
+    this.targetValue = amount;
+    this.targetCurrencyCoef = coef;
   }
-
-  onBaseCurrencyChange(event: any) {
-    console.log(event.target.value);
-    this.targetCurrency = event.target.value *= 39;
-  }
-
 }

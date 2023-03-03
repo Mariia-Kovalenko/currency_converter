@@ -42,7 +42,7 @@ export class SelectComponent implements OnInit {
     this.itemSelected.emit(id);
   }
 
-    // onChange(event: any) {
+  //   onChange(event: any) {
   //   this.selectedItemIndex = +event.target.options[event.target.options.selectedIndex].value;
   //   this.itemSelected.emit(this.selectedItemIndex);
   // }

@@ -54,10 +54,20 @@
     }
 }
 
+.rate {
+    font-size: 14px;
+    color: variables.$dark;
+    margin-top: 50px;
+
+    & span {
+        font-weight: 600;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .converter__inner {
         flex-direction: column;
-        height: 300px;
+        height: 400px;
     }
 
     .currency {

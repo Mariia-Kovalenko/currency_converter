@@ -2,12 +2,21 @@
     <option *ngFor="let option of items" [value]="option.id">{{ option.value }}</option>
 </select> -->
 
-
-<button class="custom-select {{showDropdown && 'opened'}}" (click)="onClick()">
-    <div class="custom-select__text">
+<button 
+    [ngClass]="{ 
+        customSelect: true, 
+        opened: showDropdown 
+    }" 
+    (click)="onClick()"
+>
+    <div class="customSelect__text">
         {{ items[selectedItemIndex].value }}
     </div>
-    <img src="assets/images/arrow-down.svg" alt="arrow" class="custom-select__arrow">
+    <img 
+        src="assets/images/arrow-down.svg" 
+        alt="arrow" 
+        class="customSelect__arrow"
+    >
 </button>
 <div *ngIf="showDropdown" class="dropdown-options">
     <button 

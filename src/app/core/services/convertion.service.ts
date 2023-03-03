@@ -1,25 +1,11 @@
 import { Injectable } from '@angular/core';
 import { 
-  EUR_CODE, 
-  EUR_ID, 
-  UAH_CODE, 
+  EUR_ID,  
+  indexes,  
   UAH_ID, 
-  USD_CODE, 
   USD_ID 
 } from 'src/app/utils/constants';
 
-// UAH to currencies coefs
-const indexes = [
-  {
-    id: UAH_ID, curr: UAH_CODE, coef: 1
-  },
-  {
-    id: EUR_ID, curr: EUR_CODE, coef: 0.025541
-  },
-  {
-    id: USD_ID, curr: USD_CODE, coef: 0.027072
-  }
-]
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +26,10 @@ export class ConvertionService {
       // if we are not converting from or into UAH
       if (baseCurrencyId !== UAH_ID && targetCurrencyId !== UAH_ID) {
         coef = targetCurrencyCoef.coef / baseCurrencyCoef.coef;
-        return { amount: +(amount * coef).toFixed(2), coef: +coef.toFixed(2) };
+        return { 
+          amount: +(amount * coef).toFixed(2), 
+          coef: +coef.toFixed(2) 
+        };
       }
 
       // if we are converting into UAH
@@ -50,7 +39,10 @@ export class ConvertionService {
       } 
 
       // if we are converting from UAH
-      return { amount: +(amount * targetCurrencyCoef.coef).toFixed(2), coef: +targetCurrencyCoef.coef.toFixed(2) };
+      return { 
+        amount: +(amount * targetCurrencyCoef.coef).toFixed(2), 
+        coef: +targetCurrencyCoef.coef.toFixed(2) 
+      };
     }
     
     return { amount: 0, coef: 0 };

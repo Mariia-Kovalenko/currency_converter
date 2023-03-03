@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ConvertionService } from 'src/app/core/services/convertion.service';
+import { indexes } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-converter',
@@ -9,11 +10,7 @@ import { ConvertionService } from 'src/app/core/services/convertion.service';
   styleUrls: ['./converter.component.scss']
 })
 export class ConverterComponent implements OnInit {
-  currencyOptions = [
-    { id: 1, value: 'UAH' },
-    { id: 2, value: 'EUR' },
-    { id: 3, value: 'USD' }
-  ];
+  currencyOptions = indexes.map((index) => { return { id: index.id, value: index.curr }})
 
   baseCurrency: number | undefined = this.currencyOptions[0].id;
   targetCurrency: number | undefined = this.currencyOptions[1].id;

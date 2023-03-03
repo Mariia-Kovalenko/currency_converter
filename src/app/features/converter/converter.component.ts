@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ConvertionService } from 'src/app/core/services/convertion.service';
 import { Currency } from 'src/app/shared/models/currency.model';
-import { indexes } from 'src/app/utils/constants';
+import { indexes, UAH_ID } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-converter',
@@ -38,15 +38,17 @@ export class ConverterComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('currencies').subscribe({
       next: data => {
+        // console.log(data);
+        
         this.currencyOptions = data.currencies
           .map((curr) => { 
-            return { id: curr.id, value: curr.code }
+            return { id: curr.id, value: curr.code, coef: curr.coef }
           })
-
-        this.baseCurrencyId = data.currencies[0].id;
+          
+        this.baseCurrencyId = data.currencies[2].id;
         this.targetCurrencyId = data.currencies[1].id;
 
-        this.baseCurrencyCode = data.currencies[0].code;
+        this.baseCurrencyCode = data.currencies[2].code;
         this.targetCurrencyCode = data.currencies[1].code;
       },
       error: err => {
@@ -74,7 +76,8 @@ export class ConverterComponent implements OnInit {
             .convert(
               this.baseCurrencyId, 
               this.targetCurrencyId, 
-              this.baseValue
+              this.baseValue,
+              this.currencyOptions
             );
           
           this.targetValue = amount;
@@ -97,7 +100,8 @@ export class ConverterComponent implements OnInit {
           const { amount, coef } = this.convertionService.convert(
             this.targetCurrencyId, 
             this.baseCurrencyId, 
-            this.targetValue
+            this.targetValue,
+            this.currencyOptions
           );
 
           this.baseValue = amount;
@@ -118,7 +122,8 @@ export class ConverterComponent implements OnInit {
     const { amount, coef } = this.convertionService.convert(
       this.baseCurrencyId, 
       this.targetCurrencyId, 
-      this.baseValue
+      this.baseValue,
+      this.currencyOptions
     );
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
@@ -133,7 +138,8 @@ export class ConverterComponent implements OnInit {
     const { amount, coef } = this.convertionService.convert(
       this.baseCurrencyId, 
       this.targetCurrencyId, 
-      this.baseValue
+      this.baseValue,
+      this.currencyOptions
     );
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
@@ -143,7 +149,12 @@ export class ConverterComponent implements OnInit {
     [this.baseCurrencyId, this.targetCurrencyId] = [this.targetCurrencyId, this.baseCurrencyId];
     [this.baseCurrencyCode, this.targetCurrencyCode] = [this.targetCurrencyCode, this.baseCurrencyCode];
     // recalculate target currency amount
-    const { amount, coef } = this.convertionService.convert(this.baseCurrencyId, this.targetCurrencyId, this.baseValue);
+    const { amount, coef } = this.convertionService.convert(
+      this.baseCurrencyId, 
+      this.targetCurrencyId, 
+      this.baseValue,
+      this.currencyOptions
+      );
     this.targetValue = amount;
     this.targetCurrencyCoef = coef;
   }

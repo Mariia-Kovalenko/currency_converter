@@ -10,8 +10,7 @@ export function currenciesReducer(state = initialState, action: CurrencyActions.
     switch (action.type) {
         case CurrencyActions.SET_CURRENCIES:
             return {
-                ...state,
-                currencies: [...state.currencies, action.payload]
+                currencies: [...action.payload]
             }
         default: 
             return state

@@ -5,5 +5,7 @@ export const SET_CURRENCIES = 'SET_CURRENCIES';
 
 export class SetCurrencies implements Action {
     readonly type = SET_CURRENCIES;
-    payload: Currency[];
+    // payload: Currency[];
+
+    constructor(public payload: Currency[]) {}
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/utils/endpoints';
 import { CurrencyCodes } from 'src/app/shared/models/currency.model';
+import { environment } from 'src/environments/environment';
 
 export type ServerResponseData = {
   meta: Object, 
@@ -15,9 +16,15 @@ export class ApiServiceService {
 
   constructor(private http: HttpClient) { }
 
-  fetchCurrencyRates() {
+  fetchCurrencyRates(
+    currencies: CurrencyCodes[], 
+    baseCurrency: CurrencyCodes
+  ) {
     return this.http.get<ServerResponseData>( 
-      API_URL + `apikey=${process.env['API_KEY']}&currencies=${CurrencyCodes.EUR}%2C${CurrencyCodes.USD}&base_currency=${CurrencyCodes.UAH}`
+      API_URL + 
+      `apikey=${environment.API_KEY}` + 
+      `&currencies=${currencies.join('%2C')}` + 
+      `&base_currency=${baseCurrency}`
     )
   }
 }

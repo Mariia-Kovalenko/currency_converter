@@ -20,16 +20,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.apiService.fetchCurrencyRates()
+    this.apiService.fetchCurrencyRates(
+      [ CurrencyCodes.EUR, CurrencyCodes.USD ], 
+      CurrencyCodes.UAH)
       .subscribe({
         next: (data: ServerResponseData) => {
-          // console.log(data.data);
+          console.log(data.data);
           const rates = Object.values(data.data)
-            .map(({ code, value }: {code: CurrencyCodes, value: number}, i) => {
+            .map(({ code, value }: { code: CurrencyCodes, value: number }) => {
               const id = CURR_IDS.find((curr) => curr.code === code)
               return { id: id.id, code, coef: value}
             })
-          rates.push(UAH_RATE)
+          rates.push(UAH_RATE);
+          
           // dispatch action to set the store
           this.store.dispatch(new CurrencyActions.SetCurrencies(rates));
         },

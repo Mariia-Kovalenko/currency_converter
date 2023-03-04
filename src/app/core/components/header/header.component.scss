@@ -2,5 +2,33 @@
 @use 'src/styles/mixins';
 
 .header {
-    height: variables.$header-height;
+    min-height: variables.$header-height;
+
+    &__inner {
+        max-width: 90%;
+        padding: 0 15px;
+        margin: 0 auto;
+
+        @include mixins.flex-custom(row, center, space-between,);
+
+    }
+}
+
+.currencies-list {
+    @include mixins.flex-custom(row, center, start);
+    gap: 20px;
+    color: variables.$blue;
+}
+
+.currency-rate {
+    font-size: 14px;
+    & span {
+        font-weight: 600;
+    }
+}
+
+@media screen and (max-width: 574px) {
+    .header__inner {
+        flex-direction: column;
+    }
 }

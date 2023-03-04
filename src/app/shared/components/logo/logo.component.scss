@@ -1,0 +1,13 @@
+@use 'src/styles/variables';
+@use 'src/styles/mixins';
+
+.logo {
+    &__link {
+        height: 50px;
+        
+        & img {
+            @include mixins.image;
+        }
+    }
+    
+}

@@ -3,14 +3,15 @@
 
 .converter {
     @include mixins.flex-center;
-    height: calc(100vh - variables.$header-height);
+    min-height: calc(100vh - variables.$header-height);
     margin: 0 auto;
+    padding-top: 40px;
 
     &__inner {
         display: flex;
         border-radius: 10px;
         background-color: white;
-        @include mixins.size(80%, 230px);
+        @include mixins.size(80%, 250px);
         position: relative;
         box-shadow: 0px 0px 12px 4px rgba(93, 182, 255, 0.16);
     }
@@ -28,7 +29,7 @@
 
     &__title {
         font-weight: 500;
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 20px;
     }
 
@@ -54,8 +55,8 @@
     }
 }
 
-.rate {
-    font-size: 14px;
+.info {
+    font-size: 13px;
     color: variables.$dark;
     margin-top: 50px;
 
@@ -64,10 +65,10 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
     .converter__inner {
         flex-direction: column;
-        height: 400px;
+        height: fit-content;
     }
 
     .currency {
@@ -78,4 +79,27 @@
             border-radius: 0 0px 10px 10px;
         }
     }
+
+    .info {
+        margin: 20px 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .currency {
+        &__title {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        &__inputs {
+            flex-direction: column;
+        }
+
+        &__input {
+            font-size: 18px;
+            width: 100%;
+        }
+    }
+    
 }

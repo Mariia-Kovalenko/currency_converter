@@ -44,10 +44,16 @@
 .option {
     height: 30px;
     text-align: center;
-    width: 100%;
+    width: 80px;
     transition: .3s;
 
     &:hover {
         background-color: variables.$light;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .customSelect, .option {
+        font-size: 14px;
     }
 }

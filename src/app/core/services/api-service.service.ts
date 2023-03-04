@@ -5,7 +5,9 @@ import { CurrencyCodes } from 'src/app/shared/models/currency.model';
 import { environment } from 'src/environments/environment';
 
 export type ServerResponseData = {
-  meta: Object, 
+  meta: {
+    last_updated_at: string;
+  }, 
   data: Object
 }
 

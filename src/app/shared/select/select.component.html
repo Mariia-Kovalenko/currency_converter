@@ -1,30 +1,29 @@
 <!-- <select class="select" name="select" [value]="selectedItemIndex" (change)="onChange($event)">
     <option *ngFor="let option of items" [value]="option.id">{{ option.value }}</option>
 </select> -->
-
-<button 
-    [ngClass]="{ 
-        customSelect: true, 
-        opened: showDropdown 
-    }" 
-    (click)="onClick()"
+<button
+  [ngClass]="{
+    customSelect: true,
+    opened: showDropdown
+  }"
+  (click)="onClick()"
 >
-    <div class="customSelect__text">
-        {{ items[selectedItemIndex].value }}
-    </div>
-    <img 
-        src="assets/images/arrow-down.svg" 
-        alt="arrow" 
-        class="customSelect__arrow"
-    >
+  <div class="customSelect__text">
+    {{ items[selectedItemIndex].value }}
+  </div>
+  <img
+    src="assets/images/arrow-down.svg"
+    alt="arrow"
+    class="customSelect__arrow"
+  />
 </button>
 <div *ngIf="showDropdown" class="dropdown-options">
-    <button 
-        class="option"
-        *ngFor="let option of items" 
-        class="option" 
-        (click)="onChangeSelectedValue(option.id)"
-        >
-            {{ option.value }}
-    </button>
+  <button
+    class="option"
+    *ngFor="let option of items"
+    class="option"
+    (click)="onChangeSelectedValue(option.id)"
+  >
+    {{ option.value }}
+  </button>
 </div>

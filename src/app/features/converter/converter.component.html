@@ -1,5 +1,4 @@
 <div class="converter">
-    
     <div class="converter__inner">
         <div class="currency">
             <h4 class="currency__title">You have</h4>
@@ -19,6 +18,7 @@
                     (itemSelected)="onBaseCurrencySelected($event)"
                 ></app-select>
             </form>
+            <div class="info">Last Updated: <span>{{ lastUpdated | date:"dd-MM-yyyy" }}</span> </div>
         </div>
 
         <app-icon-button 
@@ -45,8 +45,7 @@
                     (itemSelected)="onTargetCurrencySelected($event)"
                 ></app-select>
             </form>
-            <div class="rate">1 {{ baseCurrencyCode }} = <span>{{ targetCurrencyCoef }} {{ targetCurrencyCode }}</span></div>
+            <div class="info">1 {{ baseCurrencyCode }} = <span>{{ targetCurrencyCoef }} {{ targetCurrencyCode }}</span></div>
         </div>
-
     </div>
 </div>

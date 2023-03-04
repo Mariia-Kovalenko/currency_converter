@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,7 +13,8 @@ import { indexes, UAH_ID } from 'src/app/utils/constants';
   styleUrls: ['./converter.component.scss']
 })
 export class ConverterComponent implements OnInit {
-  // currencyOptions = indexes.map((index) => { return { id: index.id, value: index.curr }})
+  @Input('lastUpdated') lastUpdated: string;
+  
   currencyOptions = [];
 
   baseCurrencyId: number | undefined = 1;

@@ -1,10 +1,5 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
 import { Currency } from 'src/app/shared/models/currency.model';
 
 @Component({

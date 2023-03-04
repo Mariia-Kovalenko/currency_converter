@@ -46,8 +46,6 @@ export class SelectComponent implements OnInit, OnChanges {
   }
 
   onChangeSelectedValue(id: number) {
-    console.log(id);
-
     this.showDropdown = false;
     this.selectedItemIndex = this.items.findIndex(item => item.id === id);
     this.itemSelected.emit(id);

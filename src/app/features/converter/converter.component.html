@@ -14,7 +14,7 @@
         <app-select
           [item]="baseCurrencyId"
           [items]="currencyOptions"
-          (itemSelected)="onBaseCurrencySelected($event)"></app-select>
+          (itemSelected)="onCurrencySelected($event, BASE)"></app-select>
       </form>
       <div class="info">
         Last Updated:
@@ -41,7 +41,7 @@
         <app-select
           [item]="targetCurrencyId"
           [items]="currencyOptions"
-          (itemSelected)="onTargetCurrencySelected($event)"></app-select>
+          (itemSelected)="onCurrencySelected($event, TARGET)"></app-select>
       </form>
       <div class="info">
         1 {{ baseCurrencyCode }} =

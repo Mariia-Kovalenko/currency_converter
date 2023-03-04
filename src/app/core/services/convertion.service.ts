@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Currency } from 'src/app/shared/models/currency.model';
-import { indexes, UAH_ID } from 'src/app/utils/constants';
+import { UAH_ID } from 'src/app/utils/constants';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ export enum CurrencyCodes {
   USD = 'USD',
 }
 
-export interface Currency {
+export type Currency = {
   id: number;
   code: CurrencyCodes;
   coef: number;

@@ -6,24 +6,21 @@
     customSelect: true,
     opened: showDropdown
   }"
-  (click)="onClick()"
->
+  (click)="onClick()">
   <div class="customSelect__text">
     {{ items[selectedItemIndex].value }}
   </div>
   <img
     src="assets/images/arrow-down.svg"
     alt="arrow"
-    class="customSelect__arrow"
-  />
+    class="customSelect__arrow" />
 </button>
 <div *ngIf="showDropdown" class="dropdown-options">
   <button
     class="option"
     *ngFor="let option of items"
     class="option"
-    (click)="onChangeSelectedValue(option.id)"
-  >
+    (click)="onChangeSelectedValue(option.id)">
     {{ option.value }}
   </button>
 </div>

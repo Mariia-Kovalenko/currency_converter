@@ -1,54 +1,52 @@
 <div class="converter">
-    <div class="converter__inner">
-        <div class="currency">
-            <h4 class="currency__title">You have</h4>
-            <form [formGroup]="baseCurrencyInput" class="currency__inputs">
-                <input 
-                    type="number" 
-                    class="currency__input" 
-                    placeholder="0,00" 
-                    step="0.01" 
-                    min="0"
-                    value="{{baseValue}}"
-                    formControlName="baseCurrencyValue"
-                >
-                <app-select 
-                    [item]="baseCurrencyId"
-                    [items]="currencyOptions" 
-                    (itemSelected)="onBaseCurrencySelected($event)"
-                ></app-select>
-            </form>
-            <div class="info">
-                Last Updated: 
-                <span>{{ lastUpdated | date:"dd-MM-yyyy" }}</span>
-            </div>
-        </div>
-
-        <app-icon-button 
-            className="exchange-btn" 
-            iconSrc="assets/images/exchange.svg" 
-            (buttonClicked)="onExchangeToggle()"
-        ></app-icon-button>
-
-        <div class="currency">
-            <h4 class="currency__title">You get</h4>
-            <form [formGroup]="targetCurrencyInput" class="currency__inputs">
-                <input 
-                    type="number" 
-                    class="currency__input" 
-                    placeholder="0,00" 
-                    step="0.01" 
-                    min="0"
-                    value="{{targetValue}}"
-                    formControlName="targetCurrencyValue"
-                >
-                <app-select 
-                    [item]="targetCurrencyId"
-                    [items]="currencyOptions" 
-                    (itemSelected)="onTargetCurrencySelected($event)"
-                ></app-select>
-            </form>
-            <div class="info">1 {{ baseCurrencyCode }} = <span>{{ targetCurrencyCoef }} {{ targetCurrencyCode }}</span></div>
-        </div>
+  <div class="converter__inner">
+    <div class="currency">
+      <h4 class="currency__title">You have</h4>
+      <form [formGroup]="baseCurrencyInput" class="currency__inputs">
+        <input
+          type="number"
+          class="currency__input"
+          placeholder="0,00"
+          step="0.01"
+          min="0"
+          value="{{ baseValue }}"
+          formControlName="baseCurrencyValue" />
+        <app-select
+          [item]="baseCurrencyId"
+          [items]="currencyOptions"
+          (itemSelected)="onBaseCurrencySelected($event)"></app-select>
+      </form>
+      <div class="info">
+        Last Updated:
+        <span>{{ lastUpdated | date : 'dd-MM-yyyy' }}</span>
+      </div>
     </div>
+
+    <app-icon-button
+      className="exchange-btn"
+      iconSrc="assets/images/exchange.svg"
+      (buttonClicked)="onExchangeToggle()"></app-icon-button>
+
+    <div class="currency">
+      <h4 class="currency__title">You get</h4>
+      <form [formGroup]="targetCurrencyInput" class="currency__inputs">
+        <input
+          type="number"
+          class="currency__input"
+          placeholder="0,00"
+          step="0.01"
+          min="0"
+          value="{{ targetValue }}"
+          formControlName="targetCurrencyValue" />
+        <app-select
+          [item]="targetCurrencyId"
+          [items]="currencyOptions"
+          (itemSelected)="onTargetCurrencySelected($event)"></app-select>
+      </form>
+      <div class="info">
+        1 {{ baseCurrencyCode }} =
+        <span>{{ targetCurrencyCoef }} {{ targetCurrencyCode }}</span>
+      </div>
+    </div>
+  </div>
 </div>

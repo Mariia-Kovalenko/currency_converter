@@ -4,18 +4,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    HeaderComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    SharedModule
-  ],
-  exports: [
-    HeaderComponent
-  ]
+  declarations: [HeaderComponent],
+  imports: [CommonModule, HttpClientModule, SharedModule],
+  exports: [HeaderComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

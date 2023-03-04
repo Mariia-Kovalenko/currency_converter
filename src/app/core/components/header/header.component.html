@@ -1,13 +1,13 @@
 <header class="header">
-    <div class="header__inner">
-        <app-logo [imageSrc]="'assets/images/logo.svg'"></app-logo>
-        <ul class="currencies-list">
-            <li *ngFor="let rate of rates" class="currencies-list__item">
-                <div class="currency-rate">
-                    UAH/{{ rate.code }}
-                    <span>{{ (1 / rate.coef).toFixed(2) }}</span>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div class="header__inner">
+    <app-logo [imageSrc]="'assets/images/logo.svg'"></app-logo>
+    <ul class="currencies-list">
+      <li *ngFor="let rate of rates" class="currencies-list__item">
+        <div class="currency-rate">
+          UAH/{{ rate.code }}
+          <span>{{ (1 / rate.coef).toFixed(2) }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </header>

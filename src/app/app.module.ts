@@ -9,17 +9,15 @@ import { StoreModule } from '@ngrx/store';
 import { currenciesReducer } from './store/currencies.reducer';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     CoreModule,
     FeaturesModule,
     SharedModule,
-    StoreModule.forRoot({ currencies: currenciesReducer})
+    StoreModule.forRoot({ currencies: currenciesReducer }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

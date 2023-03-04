@@ -7,26 +7,22 @@ import { environment } from 'src/environments/environment';
 export type ServerResponseData = {
   meta: {
     last_updated_at: string;
-  }, 
-  data: Object
-}
+  };
+  data: Object;
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiServiceService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  fetchCurrencyRates(
-    currencies: CurrencyCodes[], 
-    baseCurrency: CurrencyCodes
-  ) {
-    return this.http.get<ServerResponseData>( 
-      API_URL + 
-      `apikey=${environment.API_KEY}` + 
-      `&currencies=${currencies.join('%2C')}` + 
-      `&base_currency=${baseCurrency}`
-    )
+  fetchCurrencyRates(currencies: CurrencyCodes[], baseCurrency: CurrencyCodes) {
+    return this.http.get<ServerResponseData>(
+      API_URL +
+        `apikey=${environment.API_KEY}` +
+        `&currencies=${currencies.join('%2C')}` +
+        `&base_currency=${baseCurrency}`
+    );
   }
 }

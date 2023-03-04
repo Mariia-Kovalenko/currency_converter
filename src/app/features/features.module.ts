@@ -5,18 +5,9 @@ import { SelectComponent } from '../shared/components/select/select.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [
-    ConverterComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule
-  ],
-  exports: [
-    ConverterComponent
-  ]
+  declarations: [ConverterComponent],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule],
+  exports: [ConverterComponent],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}

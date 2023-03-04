@@ -13,13 +13,12 @@
         background-color: white;
         @include mixins.size(80%, 250px);
         position: relative;
-        box-shadow: 0px 0px 12px 4px rgba(93, 182, 255, 0.16);
+        box-shadow: variables.$container-shadow;
     }
 }
 
 .currency {
-    width: 50%;
-    height: 100%;
+    @include mixins.size(50%, 100%);
     padding: 30px 50px 20px;
 
     &:last-child {
@@ -40,8 +39,7 @@
 
     &__input {
         display: block;
-        height: 40px;
-        width: 70%;
+        @include mixins.size(70%, 40px);
         padding-bottom: 5px;
         border-bottom: 1px solid variables.$input-border;
         font-size: 26px;

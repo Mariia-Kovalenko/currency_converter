@@ -1,6 +1,6 @@
 # CurrencyConverter Application
 
-![alt text](appDesign.jpg);
+![alt text](appDesign.jpg)
 
 This is a currency converting application that allowes users to
 convert UAH to such currencies as USD and EUR
@@ -27,11 +27,12 @@ users to select currency, enter the amount of money to convert and swap the curr
 - Type in amount of money to convert
 - Swap currencies an see the updated target amount
 
+### Approaches used
+
+- NgRx for state management
+- Reactive forms
+
 ## Building the project
 
 Run `ng build` to build the project. The build artifacts will
 be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

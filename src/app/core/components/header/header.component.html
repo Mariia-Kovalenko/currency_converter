@@ -4,8 +4,8 @@
     <ul class="currencies-list">
       <li *ngFor="let rate of rates" class="currencies-list__item">
         <div class="currency-rate">
-          UAH/{{ rate.code }}
-          <span>{{ (1 / rate.coef).toFixed(2) }}</span>
+          {{ rate.code }}
+          <span>{{ rate.coef ? (1 / rate.coef).toFixed(2) : 0 }}</span>
         </div>
       </li>
     </ul>

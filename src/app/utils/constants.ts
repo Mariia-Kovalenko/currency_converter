@@ -35,11 +35,11 @@ export const indexes = [
   {
     id: EUR_ID,
     code: CurrencyCodes.EUR,
-    coef: 0.2,
+    coef: 0.0,
   },
   {
     id: USD_ID,
     code: CurrencyCodes.USD,
-    coef: 0.3,
+    coef: 0.0,
   },
 ];

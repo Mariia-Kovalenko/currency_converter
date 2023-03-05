@@ -69,15 +69,7 @@ export class ConverterComponent implements OnInit {
       .subscribe({
         next: val => {
           this.baseValue = val.baseCurrencyValue;
-          const { amount, coef } = this.convertionService.convert(
-            this.baseCurrencyId,
-            this.targetCurrencyId,
-            this.baseValue,
-            this.currencyOptions
-          );
-
-          this.targetValue = amount;
-          this.targetCurrencyCoef = coef;
+          this.convertCurrency();
         },
         error: err => {
           console.error(err);
@@ -89,7 +81,6 @@ export class ConverterComponent implements OnInit {
       .subscribe({
         next: val => {
           this.targetValue = val.targetCurrencyValue;
-
           const { amount, coef } = this.convertionService.convert(
             this.targetCurrencyId,
             this.baseCurrencyId,
